@@ -33,4 +33,10 @@ public class Cachorro {
     private LocalDate dataAtualizacao;
     @Column(name="cachorro_ativo")
     private Boolean ativo;
+
+    public Cachorro(CachorroDTO dados) {
+        this.nome = dados.nome();
+        this.raca = dados.raca();
+        this.sexo = dados.sexo();
+    }
 }

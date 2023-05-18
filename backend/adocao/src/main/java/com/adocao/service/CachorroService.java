@@ -5,7 +5,10 @@ import com.adocao.domain.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CachorroService {
@@ -42,9 +45,19 @@ public class CachorroService {
     }
 
 
+        public List<Cachorro> listarCachorrosOrdenadosPorDataCadastro() {
+            List<Cachorro> cachorros = cachorroRepository.findAll();
+
+            return cachorros.stream()
+                    .sorted(Comparator.comparing(Cachorro::getDataCadastro))
+                    .collect(Collectors.toList());
+        }
+    }
 
 
 
 
 
-}
+
+
+
