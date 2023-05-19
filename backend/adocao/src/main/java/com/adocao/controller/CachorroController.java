@@ -33,6 +33,12 @@ public class CachorroController {
     @GetMapping("/ordenados")
     public ResponseEntity<List<Cachorro>> listarCachorrosOrdenadosPorDataCadastro() {
         List<Cachorro> cachorros = cachorroService.listarCachorrosOrdenadosPorDataCadastro();
-        return new ResponseEntity<>(cachorros, HttpStatus.OK);
+        return ResponseEntity.ok(cachorros);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cachorro> deletarCachorro(@PathVariable Long id){
+        Cachorro cachorroDeleteado = cachorroService.deletarCachorro(id);
+        return ResponseEntity.ok(cachorroDeleteado);
     }
 }

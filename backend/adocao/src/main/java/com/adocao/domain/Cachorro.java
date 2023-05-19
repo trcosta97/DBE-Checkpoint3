@@ -1,18 +1,22 @@
 package com.adocao.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity(name="cachorro")
 @Table(name = "tb_cachorro")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cachorro {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
