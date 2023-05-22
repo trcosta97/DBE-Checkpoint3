@@ -3,6 +3,8 @@ import './App.css';
 import { useState } from 'react';
 import axios from "axios";
 import Listar from "./component/Listar/Listar"
+import CampoTexto from './component/CampoTexto';
+import Botao from './component/Botao';
 
 function App() {
   
@@ -11,103 +13,115 @@ function App() {
   const [raca, setRaca] = useState('')
   const [sexo, setSexo] = useState('')
 
-  const api = axios.create({
-    baseURL: "https://localhost:8080",
-  });
-  
-  const cadastrar = ()=>{
+  const aoSalvar = (event) => {
+    event.preventDefault()
     const data = {
-      nome: nome,
-      raca: raca,
-      sexo:sexo
-    }
-
-    api.post("/cachorro", data)
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      if (error.response) {
-        // Erro de resposta da API
-        console.error(error.response.data);
-        console.error(error.response.status);
-      } else if (error.request) {
-        // Erro de rede
-        console.error("Erro de rede:", error.request);
-      } else {
-        // Erro desconhecido
-        console.error("Erro desconhecido:", error.message);
-      }
-    });
-};
-
-  const atualizar = () => {
-    const data = {
-      nome: nome,
-      raca: raca,
-      sexo: sexo
+        nome: nome,
+        raca: raca,
+        sexo: sexo,
     };
 
-    api.put(`/cachorro/${id}`, data)
+    axios.post('http://localhost:8080/cachorro', data)
+        .then(response => {
+            console.log(response.data);
+            alert("Cachorro cadastrado!")
+            setNome('')
+            setRaca('')
+            setSexo('')
+        })
+        .catch(error => {
+            console.log(error);
+            console.log(data);
+        });
+};
+
+const aoAtualizar = (event) => {
+  event.preventDefault()
+  const data = {
+      nome: nome,
+      raca: raca,
+      sexo: sexo,
+  };
+
+  axios.put(`http://localhost:8080/cachorro/${id}`, data)
       .then(response => {
-        console.log(response.data);
+          console.log(response.data);
+          alert("Cachorro atualizado!")
+          setNome('')
+          setRaca('')
+          setSexo('')
       })
       .catch(error => {
-        console.error(error);
+          console.log(error);
+          console.log(data);
       });
-  };
+};
 
-  const deletar = () => {
-    api.delete(`/${id}`)
+const aoExcluir = (event) => {
+  event.preventDefault()
+  const data = {
+    nome: nome,
+    raca: raca,
+    sexo: sexo,
+};
+
+  axios.delete(`http://localhost:8080/${id}`, data)
       .then(response => {
-        console.log(response.data);
+          console.log(response.data);
+          alert("Cachorro excluido!")
+          setNome('')
+          setRaca('')
+          setSexo('')
       })
       .catch(error => {
-        console.error(error);
+          console.log(error);
+          console.log(data);
       });
-  };
+};
 
 
+  
+    
 
-  const handleIdChange = event => {
-    setId(event.target.value);
-  };
-
-  const handleNomeChange = event =>{
-    setNome(event.target.value)
-  }
-
-  const handleRacaChange = event =>{
-    setRaca(event.target.value)
-  }
-
-  const handleSexoChange = event =>{
-    setSexo(event.target.value)
-  }
 
   return (
     <div>
-      <form className="cadastro">
-        <h2>Cadastro/Atualização</h2>
-        <label>ID:
-          <input type="text" value={id} onChange={handleIdChange} />
-        </label>
-        <label>Nome:  
-          <input type="text" value={nome} onChange={handleNomeChange}/>
-        </label>
-        <label>Raça:
-          <input type="text" value={raca} onChange={handleRacaChange}/>
-        </label>
-        <label>Sexo:
-          <input type="text" value={sexo} onChange={handleSexoChange}/>
-        </label>
-        <button type="button" onClick={cadastrar}>Cadastrar</button>
-        <button type="button" onClick={atualizar}>Atualizar</button>
-        <button type="button" onClick={deletar}>Deletar</button>          
-      </form>
+      <section>
+          <form onSubmit={aoSalvar} class='cadastro'>
+            <h1>Cadastro</h1>
+            <CampoTexto value={nome} obrigatorio={true} onChange={event => setNome(event.target.value)} placeholder="Digite o nome" />
+            <CampoTexto value={raca} obrigatorio={true} onChange={event => setRaca(event.target.value)} placeholder="Digite a raça" />
+            <CampoTexto value={sexo} obrigatorio={true} onChange={event => setSexo(event.target.value)} placeholder="Digite o sexo (M ou F)" />
+            <Botao>
+              Cadastrar
+            </Botao>
+          </form>
+      </section>
+      <section>
+      <form onSubmit={aoAtualizar} class='atualizar'>
+            <h1>Atualizacao</h1>
+            <CampoTexto value={id} obrigatorio={true} onChange={event => setId(event.target.value)} placeholder="Digite o Id" />
+            <CampoTexto value={nome} obrigatorio={false} onChange={event => setNome(event.target.value)} placeholder="Digite o nome" />
+            <CampoTexto value={raca} obrigatorio={false} onChange={event => setRaca(event.target.value)} placeholder="Digite a raça" />
+            <CampoTexto value={sexo} obrigatorio={false} onChange={event => setSexo(event.target.value)} placeholder="Digite o sexo (M ou F)" />
+            <Botao>
+              Atualizar
+            </Botao>
+          </form>
+      </section>
+      <section>
+      <form onSubmit={aoExcluir} class='deletar'>
+            <h1>Atualizacao</h1>
+            <CampoTexto value={id} obrigatorio={true} onChange={event => setId(event.target.value)} placeholder="Digite o Id" />
+            <Botao>
+              Excluir
+            </Botao>
+          </form>
+      </section>
       <Listar/>
     </div>
-  );
+
+  )   
 }
 
 export default App;

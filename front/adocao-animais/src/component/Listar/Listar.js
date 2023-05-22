@@ -1,41 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
+import React, {Component} from 'react';
+import axios from 'axios';
+import "./Listar.css"
 
-function Listar() {
-  const [cachorros, setCachorros] = useState([]);
 
-  const api = axios.create({
-    baseURL: "https://localhost:8080",
-  });
+const api = axios.create({
+  baseURL: `http://localhost:8080`
+})
 
-  useEffect(() => {
-    listarCachorrosOrdenados();
-  }, []);
+class Listar extends Component{
+  
+  state = {
+    cachorros : []
+  }
+  
+  constructor(){
+    super()
+    api.get('/ordenados').then(res=>{
+      console.log(res.data)
+      this.setState({cachorros : res.data})
+    })
+  }
 
-  const listarCachorrosOrdenados = () => {
-    api.get("/ordenados")
-      .then(response => {
-        setCachorros(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  return (
-    <div>
-      <h1>Cachorros Cadastrados</h1>
-      <ul>
-        {cachorros.map(cachorro => (
-          <li key={cachorro.id}>
-            <p>Nome: {cachorro.nome}</p>
-            <p>Raça: {cachorro.raca}</p>
-            <p>Sexo: {cachorro.sexo}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  render(){
+    return(
+      <div>
+        <h2>Cachorros cadastrados: </h2>
+        {this.state.cachorros.map(cachorro =><h4 key={cachorro.id}>
+          Id: {cachorro.id} - Nome: {cachorro.nome} - Raça: {cachorro.raca} - Sexo: {cachorro.sexo}
+          </h4>
+          )}
+      </div>
+    )
+  }
 }
 
-export default  Listar;
+export default Listar
+

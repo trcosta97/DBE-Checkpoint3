@@ -15,3 +15,21 @@ label{
 input{
     margin-left: 5px;
 }
+
+.atualizar{
+    background-color: rgb(220, 245, 233);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 15px;
+    text-align: center;
+
+}
+
+.deletar{
+    background-color: rgb(184, 203, 228);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 15px;
+    text-align: center;
+
+}
