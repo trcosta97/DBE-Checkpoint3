@@ -1,0 +1,15 @@
+.main{
+    background-color: antiquewhite;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h4 {
+    background-color: rgb(235, 211, 181);
+    margin-left: 40%;
+    margin-right: 40%;
+    padding: 15px;
+    border-radius: 15px;
+    border-style: outset;
+}

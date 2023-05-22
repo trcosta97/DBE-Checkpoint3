@@ -23,8 +23,8 @@ class Listar extends Component{
 
   render(){
     return(
-      <div>
-        <h2>Cachorros cadastrados: </h2>
+      <div className='main'>
+        <h2>Cachorros cadastrados </h2>
         {this.state.cachorros.map(cachorro =><h4 key={cachorro.id}>
           Id: {cachorro.id} - Nome: {cachorro.nome} - Raça: {cachorro.raca} - Sexo: {cachorro.sexo}
           </h4>

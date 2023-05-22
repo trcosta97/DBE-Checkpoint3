@@ -88,7 +88,7 @@ const aoExcluir = (event) => {
     <div>
       <section>
           <form onSubmit={aoSalvar} class='cadastro'>
-            <h1>Cadastro</h1>
+            <h1>Cadastro de cachorro</h1>
             <CampoTexto value={nome} obrigatorio={true} onChange={event => setNome(event.target.value)} placeholder="Digite o nome" />
             <CampoTexto value={raca} obrigatorio={true} onChange={event => setRaca(event.target.value)} placeholder="Digite a raça" />
             <CampoTexto value={sexo} obrigatorio={true} onChange={event => setSexo(event.target.value)} placeholder="Digite o sexo (M ou F)" />
@@ -99,7 +99,7 @@ const aoExcluir = (event) => {
       </section>
       <section>
       <form onSubmit={aoAtualizar} class='atualizar'>
-            <h1>Atualizacao</h1>
+            <h1>Atualização de cachorro</h1>
             <CampoTexto value={id} obrigatorio={true} onChange={event => setId(event.target.value)} placeholder="Digite o Id" />
             <CampoTexto value={nome} obrigatorio={false} onChange={event => setNome(event.target.value)} placeholder="Digite o nome" />
             <CampoTexto value={raca} obrigatorio={false} onChange={event => setRaca(event.target.value)} placeholder="Digite a raça" />
@@ -111,7 +111,7 @@ const aoExcluir = (event) => {
       </section>
       <section>
       <form onSubmit={aoExcluir} class='deletar'>
-            <h1>Atualizacao</h1>
+            <h1>Deletar cachorro</h1>
             <CampoTexto value={id} obrigatorio={true} onChange={event => setId(event.target.value)} placeholder="Digite o Id" />
             <Botao>
               Excluir
